@@ -34,6 +34,13 @@ def read_quakes(infilename):
     RAKE2 = []
     DIP2 = []
     
+    MRR = []
+    MTT = []
+    MPP = []
+    MRT = []
+    MRP = []
+    MTP = []
+    
     
     for quakestr in quakes:
         parts = quakestr.split('\n')
@@ -60,6 +67,15 @@ def read_quakes(infilename):
             
             EVMAG.append(np.nan)
         
+        
+        MT_elements = re.sub('\s+',',',parts[3]).split(',')
+        MRR.append(MT_elements[1])
+        MTT.append(MT_elements[3])
+        MPP.append(MT_elements[5])
+        MRT.append(MT_elements[7])
+        MRP.append(MT_elements[9])
+        MTP.append(MT_elements[11])
+        
         FP_elements = re.sub('\s+',',',parts[4]).split(',')
         #print(FP_elements)
         
@@ -74,7 +90,8 @@ def read_quakes(infilename):
        
     quakedf = pd.DataFrame({'Lat':EVLAT,'Lon':EVLON,'Dep':EVDEP,'Mag':EVMAG,
                 'Strike_1':STRIKE1,'Rake_1':RAKE1,'Dip_1':DIP1,'Strike_2':STRIKE2,
-                 'Rake_2':RAKE2,'Dip_2':DIP2})
+                 'Rake_2':RAKE2,'Dip_2':DIP2,'MRR':MRR,'MTT':MTT,'MPP':MPP,'MRT':MRT,
+                 'MRP':MRP,'MTP':MTP})
     
     return quakedf
         
