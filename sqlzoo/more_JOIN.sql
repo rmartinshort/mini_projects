@@ -133,3 +133,22 @@ SELECT mdate,
 GROUP BY mdate,team1,team2
 ORDER BY mdate, matchid, team1,team2
 
+/*
+Q14
+List the films released in the year 1978 ordered by the number of actors in the cast, then by title.
+*/
+SELECT title, COUNT(actorid) as cast 
+FROM movie 
+JOIN casting ON (movie.id = movieid)
+WHERE yr = 1978
+GROUP BY title
+ORDER BY cast DESC
+
+/*
+Q15
+List all the people who have worked with 'Art Garfunkel'.
+*/
+SELECT DISTINCT name FROM actor 
+JOIN casting ON (id = actorid)
+WHERE movieid in (SELECT movieid FROM casting JOIN actor ON (actorid = id) WHERE name = 'Art Garfunkel') AND 
+name != 'Art Garfunkel'
