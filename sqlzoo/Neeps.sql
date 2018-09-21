@@ -77,13 +77,14 @@ Q7
 For each post-graduate module, show the size of the teaching team. (post graduate modules start with the code co7).
 */
 
-SELECT COUNT(staff) FROM teaches
-WHERE event IN 
-(
-SELECT event.id FROM event
-WHERE event.modle LIKE 'co7%'
-)
-GROUP BY staff
+SELECT modle, COUNT(staff) FROM teaches JOIN
+event ON (event.id = teaches.event)
+WHERE event in
+
+(SELECT id FROM event
+WHERE modle like 'co7%')
+
+GROUP BY modle
 
 /*
 Q8
