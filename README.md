@@ -15,14 +15,16 @@
 - Flight_delays: Classification problem attempting to predict if a flight will be delayed. From a kaggle dataset. 
 
 - kaggle_home_credit_default: Outlier detection problem - attempt to predict if a customer will default on a loan from various features   
-
 - land_cover_prediction: Classification problem to determine land cover type from field observations. From a UCI dataset     
 
 - sqlzoo: Solutions to exercises from SQLZOO.org    
 
 - population_dynamics: Dynamic linear systems investigation; projecting population distribution into the future    
 
-- Baysian experiments: From reading 'Data Analysis, a Baysian Tutorial'  
+- Baysian experiments: From reading 'Data Analysis, a Baysian Tutorial'   
 
+- Mapping tools: Some experiments with overlaying geopandas plots on satellite data and folium heatmaps 
+
+- sklearn wine: Classification of wines using ANNs from tensorflow and keras, plus some other classifiersß 
 
 
