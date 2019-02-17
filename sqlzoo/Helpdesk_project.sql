@@ -69,6 +69,7 @@ HAVING COUNT(Caller.Caller_id) > 18
 /*
 Q7
 Find the callers who have never made a call. Show first name and last name
+The trick here is to do a left join
 */
 SELECT First_name, Last_name FROM Caller
 LEFT JOIN Issue ON (Issue.Caller_id = Caller.Caller_id)
@@ -115,6 +116,14 @@ SELECT Shift_date,Shift_type, Engineer2 AS role FROM Shift
 )
 AS a
 GROUP BY a.Shift_date, a.Shift_type
+
+/*
+Another option, which does not take unique employees into account
+*/
+SELECT Shift_date, Shift_type, COUNT(DISTINCT Manager) + COUNT(DISTINCT Operator) + 
+COUNT(DISTINCT Engineer2) + COUNT(DISTINCT Engineer1)
+FROM Shift
+GROUP BY Shift_date, Shift_type
 
 /*
 Q10

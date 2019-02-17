@@ -53,3 +53,55 @@ WHERE booking_date = '2016-12-03' AND room_no = 101
 
 /*
 Q6
+Ruth Cadbury. Show the total amount payable by guest Ruth Cadbury 
+for her room bookings. You should JOIN to the rate table using room_type_requested and occupants.
+*/ 
+
+SELECT SUM(nights*A.amount) FROM
+booking JOIN rate A on A.room_type = booking.room_type_requested AND A.occupancy = booking.occupants
+WHERE guest_id = ( 
+SELECT id FROM guest WHERE first_name = 'Ruth' AND last_name = 'Cadbury'
+)
+
+/*
+Q7
+Including Extras. Calculate the total bill for booking 5346 including extras
+Note here the ability to just add sums from other tables without needed to join them!
+*/
+
+SELECT SUM(A.amount) + (
+SELECT SUM(amount)
+FROM extra
+WHERE booking_id = 5346
+) as sum_amount
+FROM
+booking B JOIN rate A on A.room_type = B.room_type_requested AND A.occupancy = B.occupants
+WHERE booking_id = 5346
+
+
+/*
+Q8
+Edinburgh Residents. For every guest who has the word “Edinburgh” in their 
+address show the total number of nights booked. Be sure to include 0 for those 
+guests who have never had a booking. Show last name, first name, address and number 
+of nights. Order by last name then first name.
+
+Note the use of COALESCE here to force the sum column to be zero where its NULL
+*/
+
+SELECT A.last_name as last_name, A.first_name as first_name, A.address as address, COALESCE(SUM(nights),0) as nnights
+FROM guest A LEFT JOIN booking B ON (A.id = B.guest_id)
+WHERE address LIKE '%Edinburgh%'
+GROUP BY last_name, first_name, address
+ORDER BY last_name, first_name
+
+
+/*
+How busy are we? For each day of the week beginning 2016-11-25 show the number of bookings 
+starting that day. Be sure to show all the days of the week in the correct order.
+*/
+
+SELECT booking_date, COUNT(booking_id) FROM booking
+GROUP BY booking_date
+HAVING booking_date IN ('2016-11-25','2016-11-26','2016-11-27','2016-11-28','2016-11-29',
+	'2016-11-30','2016-12-01')
