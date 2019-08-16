@@ -100,7 +100,7 @@ class MGRStopoly():
         #adjacent cell. This is something of a fudge factor and should 
         #really be fixed. 
 
-        side_length = 1.1*10000/10**(precision-1)
+        side_length = 1.2*10000/10**(precision-1)
         
         if precision > 0:
             

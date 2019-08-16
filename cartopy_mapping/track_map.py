@@ -10,6 +10,9 @@ import numpy as np
 import time
 from datetime import datetime
 
+#import matplotlib
+#matplotlib.use('TkAgg')
+
 import shapely.geometry as sgeom
 import cartopy.crs as ccrs
 from cartopy.feature.nightshade import Nightshade
@@ -39,7 +42,7 @@ def plot_ISS(trackdf,nhours_plot=1):
     ax.coastlines(resolution='50m',linewidth=0.3)
 
     timestart = trackdf.index[-1] - np.timedelta64(nhours_plot,'h')
-    track = trackdf[timestart:]
+    track = trackdf.iloc[:1000]
 
     jump_indices = list(track[abs(track['londiff'])>330].index)
 
@@ -76,7 +79,7 @@ def plot_ISS(trackdf,nhours_plot=1):
     ax.set_title('ISS history and position for {}'.format(date))
     ax.stock_img()
     ax.add_feature(Nightshade(date, alpha=0.2))
-    plt.show()
+    #plt.show()
     plt.savefig('Latest_ISS_plot.pdf',dpi=200)
 
 
